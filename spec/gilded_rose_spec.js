@@ -84,4 +84,69 @@ describe("Gilded Rose", function() {
     expect(items[0].quality).toEqual(80); //stats stay the same
   });
 
+  it("Backstage passes quality changes work as intended", function() {
+    function fiveDays(){
+      let days = 5; 
+      items = [ new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20) ];
+      
+      while(days != 0){
+        update_quality();
+        days--;
+      }
+  
+      expect(items[0].name).toEqual("Backstage passes to a TAFKAL80ETC concert");
+      expect(items[0].sell_in).toEqual(10);
+      expect(items[0].quality).toEqual(25); //quality goes up by 1 every day by default
+    }
+
+    function tenDays(){
+      let days = 10; 
+      items = [ new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20) ];
+      
+      while(days != 0){
+        update_quality();
+        days--;
+      }
+  
+      expect(items[0].name).toEqual("Backstage passes to a TAFKAL80ETC concert");
+      expect(items[0].sell_in).toEqual(5);
+      expect(items[0].quality).toEqual(35); //quality goes up by 2 every day when sell_in date 10 or below
+    }
+
+    function thirteenDays(){
+      let days = 13; 
+      items = [ new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20) ];
+      
+      while(days != 0){
+        update_quality();
+        days--;
+      }
+  
+      expect(items[0].name).toEqual("Backstage passes to a TAFKAL80ETC concert");
+      expect(items[0].sell_in).toEqual(2);
+      expect(items[0].quality).toEqual(44); //quality goes up by 3 every day when sell_in date 5 or below
+    }
+
+    function sixteenDays(){
+      let days = 16; //one day after the concert
+      items = [ new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20) ];
+      
+      while(days != 0){
+        update_quality();
+        days--;
+      }
+  
+      expect(items[0].name).toEqual("Backstage passes to a TAFKAL80ETC concert");
+      expect(items[0].sell_in).toEqual(-1);
+      expect(items[0].quality).toEqual(0); //quality drops to 0 after the concert
+    }
+
+    fiveDays();
+    tenDays();
+    thirteenDays();
+    sixteenDays();
+
+    //this needs to be refactored lol
+  });
+
 });
