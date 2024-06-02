@@ -28,4 +28,18 @@ describe("Gilded Rose", function() {
     expect(items[0].quality).toEqual(6); //decreases by 2 instead of 1 for 2 each of the 2 days over sell_in date
   });
 
+  it("Quality of an item should never be negative", function() {
+    let days = 20; //days well over sell_in date, quality should drop to 0
+    items = [ new Item("+5 Dexterity Vest", 10, 20) ];
+    
+    while(days != 0){
+      update_quality();
+      days--;
+    }
+
+    expect(items[0].name).toEqual("+5 Dexterity Vest");
+    expect(items[0].sell_in).toEqual(-10);
+    expect(items[0].quality).toEqual(0); //stays at 0, doesn't go negative
+  });
+
 });
