@@ -19,6 +19,9 @@ function update_quality() {
       if (items[i].quality > 0) { // Quality never drops to negative
         if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
           items[i].quality = items[i].quality - 1 //
+          if(items[i].name == 'Conjured Mana Cake' && items[i].quality > 0){ //if item is conjured and quality still not 0
+            items[i].quality = items[i].quality - 1 //item quality degrades twice as fast (similar code down below for expired sell_in date) (only works for conjured mana cake in this case)
+          }
         }
       }
     } else {
@@ -47,6 +50,10 @@ function update_quality() {
           if (items[i].quality > 0) { //for "normal" items, decreases twice as fast in quality, but still cant go negative
             if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
               items[i].quality = items[i].quality - 1
+              if(items[i].name == 'Conjured Mana Cake' && items[i].quality > 0){ //if item is conjured and quality still not 0
+                items[i].quality = items[i].quality - 1 //item quality degrades twice as fast (needs to be implemented here too in case theres ever anitem thats)
+                                                        //conjured with higher sell_in dates and quality stats) (again, only conjured mana cake here)
+              }
             }
           }
         } else { //ticket quality drops to 0
