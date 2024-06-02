@@ -149,4 +149,18 @@ describe("Gilded Rose", function() {
     //this needs to be refactored lol
   });
 
+  it("Conjured items degrade twice as fast as normal items", function() {
+    let days = 2; 
+    items = [ new Item("Conjured Mana Cake", 3, 6) ];
+    
+    while(days != 0){
+      update_quality();
+      days--;
+    }
+
+    expect(items[0].name).toEqual("Conjured Mana Cake");
+    expect(items[0].sell_in).toEqual(1);
+    expect(items[0].quality).toEqual(2); 
+  });
+
 });
