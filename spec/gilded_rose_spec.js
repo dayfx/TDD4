@@ -56,4 +56,17 @@ describe("Gilded Rose", function() {
     expect(items[0].quality).toEqual(8); 
   });
 
+  it("Quality never goes above 50", function() {
+    let days = 30; //item needs 26 days to hit quality 50
+    items = [ new Item("Aged Brie", 2, 0) ];
+    
+    while(days != 0){
+      update_quality();
+      days--;
+    }
+
+    expect(items[0].name).toEqual("Aged Brie");
+    expect(items[0].sell_in).toEqual(-28);
+    expect(items[0].quality).toEqual(50); //but even with 4 extra days, quality does not go above 50
+  });
 });
