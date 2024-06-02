@@ -69,4 +69,19 @@ describe("Gilded Rose", function() {
     expect(items[0].sell_in).toEqual(-28);
     expect(items[0].quality).toEqual(50); //but even with 4 extra days, quality does not go above 50
   });
+
+  it("Sulfuras stats stay the same", function() {
+    let days = 5; //days pass
+    items = [ new Item("Sulfuras, Hand of Ragnaros", 0, 80) ];
+    
+    while(days != 0){
+      update_quality();
+      days--;
+    }
+
+    expect(items[0].name).toEqual("Sulfuras, Hand of Ragnaros");
+    expect(items[0].sell_in).toEqual(0);
+    expect(items[0].quality).toEqual(80); //stats stay the same
+  });
+
 });
