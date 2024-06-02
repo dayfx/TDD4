@@ -16,43 +16,43 @@ items.push(new Item('Conjured Mana Cake', 3, 6));
 function update_quality() {
   for (var i = 0; i < items.length; i++) {
     if (items[i].name != 'Aged Brie' && items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-      if (items[i].quality > 0) {
+      if (items[i].quality > 0) { // Quality never drops to negative
         if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
-          items[i].quality = items[i].quality - 1
+          items[i].quality = items[i].quality - 1 //
         }
       }
     } else {
-      if (items[i].quality < 50) {
+      if (items[i].quality < 50) { // Quality never goes above 50
         items[i].quality = items[i].quality + 1
         if (items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
-          if (items[i].sell_in < 11) {
-            if (items[i].quality < 50) {
-              items[i].quality = items[i].quality + 1
-            }
-          }
-          if (items[i].sell_in < 6) {
-            if (items[i].quality < 50) {
-              items[i].quality = items[i].quality + 1
+          if (items[i].sell_in < 11) {                  // backstage pass quality update .
+            if (items[i].quality < 50) {                //                               .
+              items[i].quality = items[i].quality + 1   //                               .
+            }                                           //                               .
+          }                                             //                               .
+          if (items[i].sell_in < 6) {                   //                               .
+            if (items[i].quality < 50) {                //                               .
+              items[i].quality = items[i].quality + 1   //            definitely refactor
             }
           }
         }
       }
     }
-    if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
+    if (items[i].name != 'Sulfuras, Hand of Ragnaros') { // Sulfuras never decreases in Quality or Date
       items[i].sell_in = items[i].sell_in - 1;
     }
     if (items[i].sell_in < 0) {
       if (items[i].name != 'Aged Brie') {
         if (items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-          if (items[i].quality > 0) {
+          if (items[i].quality > 0) { //for "normal" items, decreases twice as fast in quality, but still cant go negative
             if (items[i].name != 'Sulfuras, Hand of Ragnaros') {
               items[i].quality = items[i].quality - 1
             }
           }
-        } else {
+        } else { //ticket quality drops to 0
           items[i].quality = items[i].quality - items[i].quality
         }
-      } else {
+      } else { //else Brie also starts INCREASING in quality twice as fast apparently
         if (items[i].quality < 50) {
           items[i].quality = items[i].quality + 1
         }

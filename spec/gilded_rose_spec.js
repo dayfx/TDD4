@@ -1,6 +1,6 @@
 describe("Gilded Rose", function() {
 
-  it("General Chainvest test to make sure stats update as intended", function() {
+  it("General Chainvest test to make sure stats update as intended (NOT an official requirement)", function() {
     let days = 5;
     items = [ new Item("+5 Dexterity Vest", 10, 20) ];
     
@@ -15,7 +15,7 @@ describe("Gilded Rose", function() {
   });
 
   it("Once the sell date has passed, quality degrades twice as fast", function() {
-    let days = 12; //days over sell_in date
+    let days = 12; //2 days over sell_in date
     items = [ new Item("+5 Dexterity Vest", 10, 20) ];
     
     while(days != 0){
@@ -40,6 +40,20 @@ describe("Gilded Rose", function() {
     expect(items[0].name).toEqual("+5 Dexterity Vest");
     expect(items[0].sell_in).toEqual(-10);
     expect(items[0].quality).toEqual(0); //stays at 0, doesn't go negative
+  });
+
+  it("Aged Brie increases in Quality the older it gets", function() {
+    let days = 5; //3 days over "sell_in" date, so 3 days double increase 
+    items = [ new Item("Aged Brie", 2, 0) ];
+    
+    while(days != 0){
+      update_quality();
+      days--;
+    }
+
+    expect(items[0].name).toEqual("Aged Brie");
+    expect(items[0].sell_in).toEqual(-3);
+    expect(items[0].quality).toEqual(8); 
   });
 
 });
