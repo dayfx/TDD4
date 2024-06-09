@@ -1,4 +1,4 @@
-class Item{
+class Item{ 
     constructor(name, sell_in, quality) {
         this.name = name;
         this.sell_in = sell_in;
